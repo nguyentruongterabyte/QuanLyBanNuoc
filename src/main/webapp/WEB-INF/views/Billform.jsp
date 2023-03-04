@@ -1,4 +1,9 @@
 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
+<html>
 <head>
     <style>
         .panel-title {
@@ -7,25 +12,20 @@
             text-align: center;
             background-color: rgba(9, 160, 138, 0.968);
         }
-
         .box {
             border: 3px;
             border-color: rgb(11, 11, 11);
             background-color: rgba(169, 169, 169, 0.56);
         }
-
         form {
             font-size: 20px;
         }
-
         h3 {
             font-family: 'Times New Roman', Times, serif;
             text-align: left;
             font-weight: bold;
             font-size: 25px;
-
         }
-
         h4 {
             font-family: 'Times New Roman', Times, serif;
             text-align: left;
@@ -33,19 +33,16 @@
             font-size: 40px;
             background-color: cornsilk;
         }
-
         .border {
             border: 1px solid #ccc;
             /* đường viền 1 pixel với màu #ccc */
             padding: 10px;
             /* tạo khoảng cách giữa nội dung và đường viền */
         }
-
         input {
             width: 350px;
             height: 50px;
         }
-
         select {
             display: inline-block;
             /* cho phép label và select nằm cùng hàng */
@@ -54,7 +51,6 @@
             /* độ rộng của select */
             font-size: 30px;
         }
-
         label,
         input {
             display: inline-block;
@@ -63,7 +59,6 @@
             vertical-align: middle;
             /* căn giữa theo chiều dọc */
         }
-
         label {
             font-size: 25px;
             width: 200px;
@@ -73,23 +68,19 @@
             margin-right: 100px;
             /* khoảng cách giữa label và input */
         }
-
         .buttonform {
             font-size: 30px;
             font-family: 'Times New Roman', Times, serif;
             font-weight: bold;
         }
-
         span {
             font-weight: bold;
         }
-
         option {
             font-size: 50px;
             font-weight: bold;
             font-family: 'Times New Roman', Times, serif;
         }
-
         input[type="date"] {
             font-size: 40px;
         }
@@ -165,11 +156,11 @@
 
                                         <div class="form-group">
                                             <label for="ngay-lap">Ngày lập:</label>
-                                            <input type="date" style="font-size: 30px;width:500px" ; id="ngay-lap">
+                                            <input type="date" style="font-size: 30px;width:500px" id="ngay-lap">
                                         </div>
                                         <div class="form-group">
                                             <label for="payment-method">Hình thức thanh toán:</label>
-                                            <select style="font-size: 30px; width:500px" ; id="payment-method"
+                                            <select style="font-size: 30px; width:500px"  id="payment-method"
                                                 name="payment-method">
                                                 <option value="momo">Thanh toán bằng MoMo</option>
                                                 <option value="cash">Thanh toán bằng tiền mặt</option>
@@ -178,14 +169,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="amount">Số tiền thanh toán:</label>
-                                            <input type="number" style="font-size: 30px;width:500px" ;" id="amount"
+                                            <input type="number" style="font-size: 30px width:500px" id="amount"
                                                 name="amount">
                                             <span style="margin-left: 10px; ">VND</span>
                                         </div>
-
                                         <div class="form-group">
                                             <label for="amount">Số tiền phải trả:</label>
-                                            <input type="number" style="font-size: 30px;width:500px" ;" id="amount"
+                                            <input type="number" style="font-size: 30px width:500px" id="amount"
                                                 name="amount">
                                             <span style="margin-left: 10px; ">VND</span>
                                         </div>
@@ -214,8 +204,8 @@
             </div>
         </div>
     </div>
-    </div>
 
 </body>
 
+</html>
 
