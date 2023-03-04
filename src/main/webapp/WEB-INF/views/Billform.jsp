@@ -122,7 +122,7 @@
                                     <div class="col-md-4">
 
                                         <div style="text-align: center;">
-                                            <img src="img.png" alt="Picture" style="width: 200px;height: 200px;">
+                                            <img src="billform-img.png" alt="Picture" style="width: 200px;height: 200px;">
                                         </div>
                                     </div>
                                     <div class="col-md-8">
