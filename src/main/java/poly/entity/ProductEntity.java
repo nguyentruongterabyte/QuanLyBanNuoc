@@ -56,6 +56,9 @@ public class ProductEntity {
 	
 	@OneToMany(mappedBy = "id.invoiceProduct", fetch = FetchType.EAGER)
 	private Collection<InvoiceDetailEntity> invoicesDetail;
+	
+	@OneToMany(mappedBy = "id.shippingProduct", fetch = FetchType.EAGER)
+	private Collection<ShippingInvoiceDetailEntity> shippingInvoicesDetail;
 	public ProductEntity() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -138,5 +141,13 @@ public class ProductEntity {
 	public void setInvoicesDetail(Collection<InvoiceDetailEntity> invoicesDetail) {
 		this.invoicesDetail = invoicesDetail;
 	}
+	public Collection<ShippingInvoiceDetailEntity> getShippingInvoicesDetail() {
+		return shippingInvoicesDetail;
+	}
+	public void setShippingInvoicesDetail(Collection<ShippingInvoiceDetailEntity> shippingInvoicesDetail) {
+		this.shippingInvoicesDetail = shippingInvoicesDetail;
+	}
+	
+	
 	
 }

@@ -1,8 +1,12 @@
 package poly.entity;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,17 +27,13 @@ public class ManufacturerEntity {
 	
 	@Column(name="DiaChi")
 	private String address;
+	
+	@OneToMany(mappedBy = "manufacturer", fetch = FetchType.EAGER)
+	private Collection<ShippingInvoiceEntity> shippingInvoices;
+	
 	public ManufacturerEntity() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-	public ManufacturerEntity(String id, String name, String phone, String email, String address) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.phone = phone;
-		this.email = email;
-		this.address = address;
 	}
 	public String getId() {
 		return id;
@@ -64,6 +64,12 @@ public class ManufacturerEntity {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public Collection<ShippingInvoiceEntity> getShippingInvoices() {
+		return shippingInvoices;
+	}
+	public void setShippingInvoices(Collection<ShippingInvoiceEntity> shippingInvoices) {
+		this.shippingInvoices = shippingInvoices;
 	}
 
 	
