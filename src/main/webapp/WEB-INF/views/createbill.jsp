@@ -169,10 +169,11 @@
                                     <div class="row">
                                         <div class="col-md-4 ">
                                             <div >
-                                                <img src="img.PNG" style="border-right: 10px solid rgb(4, 187, 178);" alt="Picture">
+                                                <img src="createbill-img.PNG" style="border-right: 10px solid rgb(4, 187, 178);" alt="Picture">
                                             </div> 
                                         </div>
                                         <div class="col-md-8">
+                                            
                                             <form action="">
                                         
                                         
