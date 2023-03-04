@@ -191,22 +191,13 @@
                     <button type="button" class="btn btn-success  buttonform">Xoá</button>
                   </div>
                 </div>
-                <!-- <div class="col-md-4">
-                  <div class="text-center">
-                    <button type="button" class="btn btn-success  buttonform">Đóng</button>
-                    </div>
-                </div> -->
+               
               </div>
             </div>
 
           </div>
         </div>
-
-
-
       </div>
-
-
       <div class="col-lg-5">
         <div class="panel panel-default " style="max-width: 2500px;">
           <div class="panel-heading formheading">Thông tin nhân viên</div>
@@ -217,7 +208,7 @@
                 <div class="row">
                   <div class="col-md-4">
                     <div style="text-align: left; display: inline-block;">
-                      <img src="custormer.PNG" alt="Picture" style="width: 700px;height: 700px;">
+                      <img src="employee-img.png" alt="Picture" style="width: 700px;height: 700px;">
 
                     </div>
                   </div>
