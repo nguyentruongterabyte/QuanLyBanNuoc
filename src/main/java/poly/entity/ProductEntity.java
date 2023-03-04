@@ -46,19 +46,20 @@ public class ProductEntity {
 	private BrandEntity brand;
 	
 	@OneToMany(mappedBy = "id.purchaseProduct", fetch = FetchType.EAGER)
-	private Collection<PurchaseOrderDetailEntity> purchaseProducts;
+	private Collection<PurchaseOrderDetailEntity> purchaseOrders;
 
 	@OneToMany(mappedBy = "id.orderProduct", fetch = FetchType.EAGER)
-	private Collection<OrderFormDetailEntity> orderProducts;
+	private Collection<OrderFormDetailEntity> orderForms;
 	
 	@OneToMany(mappedBy = "id.warehouseProduct", fetch = FetchType.EAGER)
-	private Collection<WarehouseDetailEntity> warehouseProducts;
+	private Collection<WarehouseDetailEntity> warehouses;
 	
+	@OneToMany(mappedBy = "id.invoiceProduct", fetch = FetchType.EAGER)
+	private Collection<InvoiceDetailEntity> invoicesDetail;
 	public ProductEntity() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 	public String getId() {
 		return id;
 	}
@@ -101,7 +102,6 @@ public class ProductEntity {
 	public void setBarCode(String barCode) {
 		this.barCode = barCode;
 	}
-	
 	public String getPhoto() {
 		return photo;
 	}
@@ -114,27 +114,29 @@ public class ProductEntity {
 	public void setBrand(BrandEntity brand) {
 		this.brand = brand;
 	}
-	public Collection<PurchaseOrderDetailEntity> getPurchaseProducts() {
-		return purchaseProducts;
+	public Collection<PurchaseOrderDetailEntity> getPurchaseOrders() {
+		return purchaseOrders;
 	}
-	public void setPurchaseProducts(Collection<PurchaseOrderDetailEntity> purchaseProducts) {
-		this.purchaseProducts = purchaseProducts;
+	public void setPurchaseOrders(Collection<PurchaseOrderDetailEntity> purchaseOrders) {
+		this.purchaseOrders = purchaseOrders;
 	}
-	public Collection<OrderFormDetailEntity> getOrderProducts() {
-		return orderProducts;
+	public Collection<OrderFormDetailEntity> getOrderForms() {
+		return orderForms;
 	}
-	public void setOrderProducts(Collection<OrderFormDetailEntity> orderProducts) {
-		this.orderProducts = orderProducts;
+	public void setOrderForms(Collection<OrderFormDetailEntity> orderForms) {
+		this.orderForms = orderForms;
 	}
-
-	public Collection<WarehouseDetailEntity> getWarehouseProducts() {
-		return warehouseProducts;
+	public Collection<WarehouseDetailEntity> getWarehouses() {
+		return warehouses;
 	}
-
-	public void setWarehouseProducts(Collection<WarehouseDetailEntity> warehoseProducts) {
-		this.warehouseProducts = warehoseProducts;
+	public void setWarehouses(Collection<WarehouseDetailEntity> warehouses) {
+		this.warehouses = warehouses;
 	}
-	
-	
+	public Collection<InvoiceDetailEntity> getInvoicesDetail() {
+		return invoicesDetail;
+	}
+	public void setInvoicesDetail(Collection<InvoiceDetailEntity> invoicesDetail) {
+		this.invoicesDetail = invoicesDetail;
+	}
 	
 }

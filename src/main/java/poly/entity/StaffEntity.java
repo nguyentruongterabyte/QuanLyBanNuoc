@@ -43,7 +43,8 @@ public class StaffEntity {
 	@OneToMany(mappedBy = "pStaff", fetch = FetchType.EAGER)
 	private Collection<PurchaseOrderEntity> purchaseOrders;
 	
-
+	@OneToMany(mappedBy = "staff", fetch = FetchType.EAGER)
+	private Collection<InvoiceEntity> invoices;
 	public StaffEntity() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -119,6 +120,14 @@ public class StaffEntity {
 
 	public void setPurchaseOrders(Collection<PurchaseOrderEntity> purchaseOrders) {
 		this.purchaseOrders = purchaseOrders;
+	}
+
+	public Collection<InvoiceEntity> getInvoices() {
+		return invoices;
+	}
+
+	public void setInvoices(Collection<InvoiceEntity> invoices) {
+		this.invoices = invoices;
 	}
 	
 	

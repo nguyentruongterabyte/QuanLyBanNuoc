@@ -1,10 +1,14 @@
 package poly.entity;
 
 import java.sql.Date;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,18 +31,11 @@ public class CustommerEntity {
 	private Date birthday;
 	@Column(name="Diem")
 	private int GPA; // Điểm tích lũy của khách hàng
-	public CustommerEntity(String id, String fullname, String phone, String email, String address, String gender,
-			Date birthday, int gPA) {
-		super();
-		this.id = id;
-		this.fullname = fullname;
-		this.phone = phone;
-		this.email = email;
-		this.address = address;
-		this.gender = gender;
-		this.birthday = birthday;
-		GPA = gPA;
-	}
+	
+	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+	private Collection<InvoiceEntity> invoices;
+	
+
 	public CustommerEntity() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -91,6 +88,11 @@ public class CustommerEntity {
 	public void setGPA(int gPA) {
 		GPA = gPA;
 	}
+	public Collection<InvoiceEntity> getInvoices() {
+		return invoices;
+	}
+	public void setInvoices(Collection<InvoiceEntity> invoices) {
+		this.invoices = invoices;
+	}
 
-	
 }
