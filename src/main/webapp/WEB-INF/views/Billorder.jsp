@@ -169,7 +169,7 @@
                                     <div class="row">
                                         <div class="col-md-4 ">
                                             <div >
-                                                <img src="img.png" style="border-right: 10px solid rgb(4, 187, 178);" alt="Picture">
+                                                <img src="billorder-img.png" style="border-right: 10px solid rgb(4, 187, 178);" alt="Picture">
                                             </div> 
                                         </div>
                                         <div class="col-md-8">
