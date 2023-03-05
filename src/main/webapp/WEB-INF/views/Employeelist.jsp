@@ -79,6 +79,18 @@
       height: 110px;
       font-size: 60px;
     }
+        thead
+{
+    
+    position: sticky;
+  top: 0; /* Giữ nguyên vị trí của phần header */
+  
+}
+    tr:hover
+{
+  cursor: pointer;
+  background-color: rgba(9, 208, 208, 0.642);
+}
   </style>
 
 </head>
@@ -102,7 +114,7 @@
           </h3>
         </div>
         <hr>
-        <div class="panel-body">
+        <div class="panel-body" style="width:255em;height:120em; overflow-y: scroll;">
           <div class="row">
             <div class="col-md-12">
               <table class="table" style="border-collapse: collapse;">
