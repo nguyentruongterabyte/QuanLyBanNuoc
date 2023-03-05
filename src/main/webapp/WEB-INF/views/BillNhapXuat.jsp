@@ -1,5 +1,5 @@
-<head>
-    <style>
+ <head>
+<style>
         .panel-title {
             text-align: left;
             font-size: 7em;
@@ -64,7 +64,19 @@
             border-radius: 20px;
             /* độ cong góc của button */
             /* box-shadow: 5px 5px 5px rgba(199, 5, 5, 0.56); */
-            margin-top: 5em;
+            margin-top: 4em;
+            /* phủ bóng mờ */
+        }
+        .buttonform2 {
+            padding: 0.3em 1.4em;
+            font-size: 60px;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            border: 4px solid #f80202;
+            border-radius: 20px;
+            /* độ cong góc của button */
+            /* box-shadow: 5px 5px 5px rgba(199, 5, 5, 0.56); */
+            
             /* phủ bóng mờ */
         }
     </style>
@@ -104,8 +116,12 @@
                             <div class="col-md-7 ">
                                 <div class="col-md-3 formcol">
                                     <div style="text-align: left;">
-                                        <img src="billnhapxuat-img.png" alt="Picture" style="width: 60em;height: 70em;">
-
+                                        <img src="billnhapxuat-img.png" alt="Picture" style="width: 60em;height: 60em;">
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-success  buttonform">Xuất Hàng</button>
+                
+                
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4 formcol">
@@ -226,7 +242,9 @@
                                                             <td>30</td>
                                                         </tr>
 
-                                                       <tr>
+
+
+                                                        <tr>
                                                             <td>Nước Suối</td>
                                                             <td>100</td>
                                                             <td>30</td>
@@ -304,7 +322,7 @@
                             <div class="panel-heading">
                                 <h1>Danh sách đơn hàng</h1>
                             </div>
-                            <div class="panel-body" style="width:110em;height:90em; overflow-y: scroll;">
+                            <div class="panel-body" style="width:110em;height:75em; overflow-y: scroll;">
                                 <table class="table" style="border-collapse: collapse;">
                                     <thead>
                                         <tr>
@@ -388,7 +406,7 @@
                             <div class="panel-heading">
                                 <h1>Đơn hàng được Nhập/Xuất</h1>
                             </div>
-                            <div class="panel-body" style="width:180em;height:90em; overflow-y: scroll;">
+                            <div class="panel-body" style="width:180em;height:75em; overflow-y: scroll;">
                                 <table class="table" style="border-collapse: collapse;">
                                     <thead>
                                         <tr>
@@ -488,7 +506,7 @@
                             <div class="panel-heading">
                                 <h1>Mặt Hàng</h1>
                             </div>
-                            <div class="panel-body" style="width:105em;height:90em; overflow-y: scroll;">
+                            <div class="panel-body" style="width:105em;height:75em; overflow-y: scroll;">
                                 <table class="table" style="border-collapse: collapse;">
                                     <thead>
                                         <tr>
@@ -582,10 +600,20 @@
                                 </table>
                             </div>
                         </div>
+                        
                     </div>
+                   
                 </div>
+               
             </div>
+            
         </div>
-        </div>      
+        <div class="text-right">
+            <button type="button" class="btn btn-success  buttonform2">Thêm</button>
+            <button type="button" class="btn btn-success  buttonform2">Tạo</button>
+         
+
+        </div>     
+       
     </form>
 </body>
