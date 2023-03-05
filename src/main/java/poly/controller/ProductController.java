@@ -115,7 +115,17 @@ public class ProductController {
 		Transaction t = session.beginTransaction();
 
 		try {
-			String hql = "UPDATE ProductEntity p SET p.name = :name, p.brand.id = :brand, p.volume = :volume, p.barCode = :barCode, p.retailPrice = :retailPrice, p.purchasePrice = :purchasePrice, p.describe = :describe, p.photo = :photo WHERE p.id = :id";
+			String hql = "UPDATE ProductEntity p "
+					+ "SET "
+					+ "p.name = :name, "
+					+ "p.brand.id = :brand, "
+					+ "p.volume = :volume, "
+					+ "p.barCode = :barCode, "
+					+ "p.retailPrice = :retailPrice, "
+					+ "p.purchasePrice = :purchasePrice, "
+					+ "p.describe = :describe, "
+					+ "p.photo = :photo "
+					+ "WHERE p.id = :id";
 			Query query = session.createQuery(hql);
 			query.setParameter("name", name);
 			query.setParameter("brand", brand);
