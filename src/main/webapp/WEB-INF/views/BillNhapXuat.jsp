@@ -79,6 +79,11 @@
             
             /* phủ bóng mờ */
         }
+ tr:hover
+        {
+            cursor: pointer;
+            background-color: rgba(2, 145, 119, 0.523);
+        }
     </style>
 
 </head>
