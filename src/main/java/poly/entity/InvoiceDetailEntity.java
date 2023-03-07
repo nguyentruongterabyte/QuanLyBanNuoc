@@ -18,14 +18,14 @@ public class InvoiceDetailEntity {
 
 	
 	@Embeddable
-	public class InvoiceDetailId implements Serializable {
+	public static class Pk implements Serializable {
 
-	
-		
+
+
 		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 5037934675077389255L;
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 		@ManyToOne
 		@JoinColumn(name="MaDon")
@@ -35,20 +35,6 @@ public class InvoiceDetailEntity {
 		@JoinColumn(name="MaMH")
 		private ProductEntity invoiceProduct;
 
-		public InvoiceDetailId() {
-			super();
-		}
-		
-		
-		
-		public InvoiceDetailId(InvoiceEntity invoice, ProductEntity invoiceProduct) {
-			super();
-			this.invoice = invoice;
-			this.invoiceProduct = invoiceProduct;
-		}
-
-
-
 		public InvoiceEntity getInvoice() {
 			return invoice;
 		}
@@ -57,7 +43,6 @@ public class InvoiceDetailEntity {
 			this.invoice = invoice;
 		}
 
-		
 		public ProductEntity getInvoiceProduct() {
 			return invoiceProduct;
 		}
@@ -65,18 +50,29 @@ public class InvoiceDetailEntity {
 		public void setInvoiceProduct(ProductEntity invoiceProduct) {
 			this.invoiceProduct = invoiceProduct;
 		}
-		
+
+		public Pk() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+
+		public Pk(InvoiceEntity invoice, ProductEntity invoiceProduct) {
+			super();
+			this.invoice = invoice;
+			this.invoiceProduct = invoiceProduct;
+		}
+
 		
 	}
 	@EmbeddedId
-	private InvoiceDetailId id;
+	private Pk id;
 	
 	@Column(name="SoLuong")
 	private int quantity;
 
 	public InvoiceDetailEntity() {
 		super();
-		this.id = new InvoiceDetailId();
+		this.id = new Pk();
 	}
 
 	public void setInvoiceEntity(InvoiceEntity invoice) {
@@ -86,12 +82,12 @@ public class InvoiceDetailEntity {
 	public void setProductEntity(ProductEntity product) {
 		this.id.setInvoiceProduct(product);
 	}
-	
-	public InvoiceDetailId getId() {
+
+	public Pk getId() {
 		return id;
 	}
 
-	public void setId(InvoiceDetailId id) {
+	public void setId(Pk id) {
 		this.id = id;
 	}
 
@@ -102,6 +98,6 @@ public class InvoiceDetailEntity {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
+	
 
 }

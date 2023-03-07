@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import poly.bean.InvoiceDetail;
+import poly.entity.DiscountEntity;
 import poly.entity.InvoiceDetailEntity;
 import poly.entity.InvoiceEntity;
 import poly.entity.ProductEntity;
@@ -49,35 +50,14 @@ public class BillController {
 		return cashiers;
 	}	
 	
-	//Lấy mã hóa đơn tự động
-	@ModelAttribute("invoiceId")
-	public String getInvoiceId(ModelMap model) {
-		Session session = factory.getCurrentSession();
-		String hqlCount = "SELECT COUNT(*) FROM InvoiceEntity";
-		Query query = session.createQuery(hqlCount);
-		Long count = (Long) query.uniqueResult();
-		String invoiceId;
-		if (count == 0) {
-			invoiceId = "HD00000001";
-		} else {
-			//Lấy hóa đơn lớn nhất hiện có trong bảng InvoiceEntity
-			String hqlMax = "SELECT MAX(invoice.id)"
-					+ " FROM InvoiceEntity invoice";
-			Query queryMax = session.createQuery(hqlMax);
-			String maxId = (String) queryMax.uniqueResult();
-			
-			//Tạo mã hóa đơn mới bằng cách tăng số thứ tự ở cuối chuỗi mã hóa đơn lên 1
-			String indexStr = maxId.substring(2);
-			indexStr = indexStr.trim();
-			int index = Integer.parseInt(indexStr) + 1;
-			invoiceId = "HD" + String.format("%08d", index);
-		}
-		return invoiceId;
-	}
+//	//Lấy mã hóa đơn tự động
+//	@ModelAttribute("invoiceId")
+//	public String getNewInvoiceId() {
+//	}
 	
 	@RequestMapping(value = "create-bill", method = RequestMethod.GET)
 	public String createBill(ModelMap model) {
-		
+	
 		Session session = factory.getCurrentSession();
 		String hqlCount = "SELECT COUNT(*) FROM InvoiceEntity";
 		Query query = session.createQuery(hqlCount);
@@ -98,6 +78,7 @@ public class BillController {
 			int index = Integer.parseInt(indexStr) + 1;
 			invoiceId = "HD" + String.format("%08d", index);
 		}
+
 		
 		model.addAttribute("invoiceId", invoiceId);
 		model.addAttribute("cashiers");
@@ -131,7 +112,7 @@ public class BillController {
 		try {
 			newInvoice.setId(invoiceId);
 			newInvoice.setStaff(staff);
-			newInvoice.setInvoiceDate(Timestamp.valueOf(invoiceDate));
+//			newInvoice.setInvoiceDate(Timestamp.valueOf(invoiceDate));
 			session.save(newInvoice);
 			t.commit();
 			
@@ -142,7 +123,7 @@ public class BillController {
 		} finally {
 			session.close();
 		}
-
+		model.addAttribute("discounts");
 		model.addAttribute("invoiceId", invoiceId);
 		model.addAttribute("products");
 		return "bill/createBillDetail";
@@ -151,8 +132,20 @@ public class BillController {
 	@RequestMapping(value = "/create-bill-detail", method = RequestMethod.GET) 
 	public String showBillDetail(ModelMap model) {
 		model.addAttribute("invoiceId");
+		model.addAttribute("discounts");
 		return "bill/createBillDetail";
 		
+	}
+	
+	@ModelAttribute("discounts")
+	public List<DiscountEntity> getDiscount() {
+		Session session = factory.getCurrentSession();
+		Query query = session.createQuery("FROM DiscountEntity");
+		
+		@SuppressWarnings("unchecked")
+		List<DiscountEntity> list = query.list();
+		
+		return list;
 	}
 	
 	@ModelAttribute("invoiceId")
@@ -165,15 +158,13 @@ public class BillController {
 		return currentInvoiceId;
 	}
 	
+	
 	@RequestMapping(value = "/create-bill-detail", method = RequestMethod.POST)
 	public String addProductToInvoice(ModelMap model, 
 			@RequestParam("productId") String productId, 
 			@RequestParam("invoiceId") String invoiceId,
 			@RequestParam("productQuantity") int productQuantity
 ) {
-		System.out.print(productId);
-		System.out.print(invoiceId);
-		System.out.print(productQuantity);
 	
 		
 		Session session = factory.openSession();
@@ -181,15 +172,49 @@ public class BillController {
 		
 		
 		try {
-			ProductEntity product = (ProductEntity) session.get(ProductEntity.class, productId);
-			InvoiceEntity invoice = (InvoiceEntity) session.get(InvoiceEntity.class, invoiceId);
-			InvoiceDetailEntity invoiceDetail = new InvoiceDetailEntity();
-			invoiceDetail.setInvoiceEntity(invoice);
-			invoiceDetail.setProductEntity(product);
-			session.save(invoiceDetail);
+			//Kiểm tra xem đã tồn tại sản phẩm đó ở trong hóa đơn hay chưa
+			String hql = "FROM InvoiceDetailEntity WHERE id.invoice.id = :invoiceId AND id.invoiceProduct.id = :productId";
+			Query query = session.createQuery(hql);
+			query.setParameter("invoiceId", invoiceId);
+			query.setParameter("productId", productId);
+			
+			@SuppressWarnings("unchecked")
+			List<InvoiceDetailEntity> listCheck = query.list();
+			
+			if (listCheck.isEmpty()) {
+				ProductEntity product = (ProductEntity) session.get(ProductEntity.class, productId);
+				InvoiceEntity invoice = (InvoiceEntity) session.get(InvoiceEntity.class, invoiceId);
+				InvoiceDetailEntity invoiceDetail = new InvoiceDetailEntity();
+				invoiceDetail.setInvoiceEntity(invoice);
+				invoiceDetail.setProductEntity(product);
+				invoiceDetail.setQuantity(productQuantity);
+				session.save(invoiceDetail);				
+			} else {
+				String hqlQuantity = "SELECT d.quantity FROM InvoiceDetailEntity d WHERE d.id.invoice.id = :invoiceId AND d.id.invoiceProduct.id = :productId";
+				Query queryQuantity = session.createQuery(hqlQuantity);
+				queryQuantity.setParameter("productId", productId);
+				queryQuantity.setParameter("invoiceId", invoiceId);
+				
+				Integer quantity = (Integer) queryQuantity.uniqueResult();
+				
+				productQuantity = productQuantity + quantity;
+				
+				String hqlSumQuantity = "UPDATE InvoiceDetailEntity d "
+						+ "SET "
+						+ "d.quantity = :productQuantity "
+						+ "WHERE "
+						+ "d.id.invoice.id = :invoiceId "
+						+ "AND "
+						+ "d.id.invoiceProduct.id = :productId";
+				Query querySumQuantity = session.createQuery(hqlSumQuantity);
+				querySumQuantity.setParameter("invoiceId", invoiceId);
+				querySumQuantity.setParameter("productId", productId);
+				querySumQuantity.setParameter("productQuantity", productQuantity);
+		
+				querySumQuantity.executeUpdate();
+			}
 			
 			t.commit();
-			System.out.print("Thanh Cong!");
 
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -198,7 +223,23 @@ public class BillController {
 		} finally {
 			session.close();
 		}
+		Session session2 = factory.getCurrentSession();
+		
+		String hql = "SELECT d FROM InvoiceDetailEntity d WHERE d.id.invoice.id = :invoiceId";
+		
+		Query query = session2.createQuery(hql);
+		query.setParameter("invoiceId", invoiceId);
+		@SuppressWarnings("unchecked")
+		List<InvoiceDetailEntity> list = query.list();
+		model.addAttribute("invoiceDetail", list);
+		for (InvoiceDetailEntity i : list) {
+//			System.out.println(i.getId().getInvoice().getId());
+//			System.out.println(i.getId().getInvoiceProduct().getId());
+//			System.out.println(i.getQuantity());
+		}
+		model.addAttribute("invoiceDetails", list);
 		model.addAttribute("invoiceId", invoiceId);
+		model.addAttribute("discounts");
 		return "bill/createBillDetail";
 	}
 	

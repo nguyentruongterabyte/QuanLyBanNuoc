@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -253,7 +255,7 @@ span {
 																<hr>
 																<input class="formselectandinput" type="number"
 																	id="product-quantity" name="productQuantity"
-																	id="product-quantity" value="1">
+																	id="product-quantity" value="${1}">
 																<hr>
 															</div>
 															<div class="col-md-2 " style="margin-top: 5em;">
@@ -366,6 +368,15 @@ span {
 										</tr>
 									</thead>
 									<tbody id="list-product">
+										<c:forEach var="d" items="${invoiceDetails}" varStatus="i">
+											<tr> 
+												<td>${i.index + 1}</td>
+												<td>${d.id.invoiceProduct.name}</td>
+												<td>${d.id.invoiceProduct.retailPrice}</td>
+												<td>${d.quantity}</td>
+												<td class="list-product-total-cost">${d.id.invoiceProduct.retailPrice * d.quantity}</td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -384,7 +395,7 @@ span {
 							</div>
 							<div class="col-md-2"
 								style="border-right: 0.1em solid rgba(91, 89, 89, 0.663);">
-								<input type="text" class="total-amount">
+								<input type="text" class="total-amount" readonly="readonly">
 								<hr>
 								<input type="text" class="surcharge">
 								<hr>
@@ -398,10 +409,9 @@ span {
 							<div class="col-md-2"
 								style="border-right: 0.1em solid rgba(91, 89, 89, 0.663);">
 								<select id="discount">
-									<option value="0">Không có chiết khấu</option>
-									<option value="5">Chiết khấu 5%</option>
-									<option value="10">Chiết khấu 10%</option>
-									<option value="15">Chiết khấu 15%</option>
+									<c:forEach var="d" items="${discounts}">
+										<option value="${p.id}">giảm giá <fmt:formatNumber value="${p.percent }" type="percent" /></option>
+									</c:forEach>
 								</select>
 								<hr>
 								<input type="text" class="vat">
@@ -525,6 +535,8 @@ span {
 		}
 	</script>
 	<script>
+	
+		// Xử lý sự kiện khi click vào button thêm sản phẩm vào giỏ hàng
 		$('#add-product-btn').click(function() {
 		
 			var index = $('#list-product tr').length + 1
@@ -541,6 +553,22 @@ span {
 			
 			$('#list-product').append(newRow)
 		})
+	</script>
+	
+	<script>
+		var listProductTotalCost = $('.list-product-total-cost');
+		var totalCost = 0;
+		listProductTotalCost.each(function () {
+			var cost = parseFloat($(this).text());
+			
+			if (!isNaN(cost)) {
+				totalCost += cost;
+			}
+		});
+		
+		const formattedCost = totalCost.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
+
+		$('.total-amount').val(formattedCost);
 	</script>
 </body>
 
