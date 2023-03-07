@@ -43,17 +43,6 @@ public class InvoiceEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public InvoiceEntity(String id, Timestamp invoiceDate, String status, CustommerEntity customer,
-			DiscountEntity discount, StaffEntity staff) {
-		super();
-		this.id = id;
-		this.invoiceDate = invoiceDate;
-		this.status = status;
-		this.customer = customer;
-		this.discount = discount;
-		this.staff = staff;
-	}
-
 	public String getId() {
 		return id;
 	}
@@ -61,6 +50,8 @@ public class InvoiceEntity {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	
 
 	public Timestamp getInvoiceDate() {
 		return invoiceDate;
@@ -68,6 +59,14 @@ public class InvoiceEntity {
 
 	public void setInvoiceDate(Timestamp invoiceDate) {
 		this.invoiceDate = invoiceDate;
+	}
+
+	public Collection<InvoiceDetailEntity> getInvoices() {
+		return invoices;
+	}
+
+	public void setInvoices(Collection<InvoiceDetailEntity> invoices) {
+		this.invoices = invoices;
 	}
 
 	public String getStatus() {

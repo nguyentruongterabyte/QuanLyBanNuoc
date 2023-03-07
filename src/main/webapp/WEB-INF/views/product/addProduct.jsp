@@ -26,7 +26,7 @@
 							method="post">
 							<div class="form-group">
 								<label for="id">Mã sản phẩm</label> <input type="text"
-									class="form-control" id="id" name="id" value="">
+									class="form-control" id="id" name="id" value="${newProductId}" readonly="readonly">
 							</div>
 							<div class="form-group">
 								<label for="name">Tên sản phẩm</label> <input type="text"

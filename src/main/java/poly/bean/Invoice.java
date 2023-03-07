@@ -6,6 +6,7 @@ public class Invoice {
 	private String id;
 	private Timestamp invoiceDate;
 	private String status;
+	private String staffId;
 	public Invoice() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -33,6 +34,12 @@ public class Invoice {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getStaffId() {
+		return staffId;
+	}
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
 	}
 	
 }

@@ -12,16 +12,21 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "CT_HOADON")
+
 public class InvoiceDetailEntity {
 //	Tạo khóa tổ hợp từ khóa ngoại
+
+	
 	@Embeddable
 	public class InvoiceDetailId implements Serializable {
 
+	
+		
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
-		
+		private static final long serialVersionUID = 5037934675077389255L;
+
 		@ManyToOne
 		@JoinColumn(name="MaDon")
 		private InvoiceEntity invoice;
@@ -32,28 +37,24 @@ public class InvoiceDetailEntity {
 
 		public InvoiceDetailId() {
 			super();
-			// TODO Auto-generated constructor stub
 		}
-
 		
 		
-		public InvoiceEntity getInvoice() {
-			return invoice;
-		}
-
-
-
-		public void setInvoice(InvoiceEntity invoice) {
-			this.invoice = invoice;
-		}
-
-
-
-
+		
 		public InvoiceDetailId(InvoiceEntity invoice, ProductEntity invoiceProduct) {
 			super();
 			this.invoice = invoice;
 			this.invoiceProduct = invoiceProduct;
+		}
+
+
+
+		public InvoiceEntity getInvoice() {
+			return invoice;
+		}
+
+		public void setInvoice(InvoiceEntity invoice) {
+			this.invoice = invoice;
 		}
 
 		
@@ -61,16 +62,8 @@ public class InvoiceDetailEntity {
 			return invoiceProduct;
 		}
 
-
-
 		public void setInvoiceProduct(ProductEntity invoiceProduct) {
 			this.invoiceProduct = invoiceProduct;
-		}
-
-
-
-		public static long getSerialversionuid() {
-			return serialVersionUID;
 		}
 		
 		
@@ -79,19 +72,21 @@ public class InvoiceDetailEntity {
 	private InvoiceDetailId id;
 	
 	@Column(name="SoLuong")
-	private int quatity;
+	private int quantity;
 
 	public InvoiceDetailEntity() {
 		super();
-		// TODO Auto-generated constructor stub
+		this.id = new InvoiceDetailId();
 	}
 
-	public InvoiceDetailEntity(InvoiceDetailId id, int quatity) {
-		super();
-		this.id = id;
-		this.quatity = quatity;
+	public void setInvoiceEntity(InvoiceEntity invoice) {
+		this.id.setInvoice(invoice);
 	}
-
+	
+	public void setProductEntity(ProductEntity product) {
+		this.id.setInvoiceProduct(product);
+	}
+	
 	public InvoiceDetailId getId() {
 		return id;
 	}
@@ -100,12 +95,13 @@ public class InvoiceDetailEntity {
 		this.id = id;
 	}
 
-	public int getQuatity() {
-		return quatity;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setQuatity(int quatity) {
-		this.quatity = quatity;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
-	
+
+
 }

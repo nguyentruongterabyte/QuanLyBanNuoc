@@ -153,10 +153,37 @@ public class ProductController {
 	}
 
 	@RequestMapping("add-product")
-	public String addProduct() {
+	public String addProduct(ModelMap model) {
+		model.addAttribute("newProductId");
 		return "product/addProduct";
 	}
 
+	//Tạo mã tự động tăng
+	@ModelAttribute("newProductId")
+	public String getNewProductId() {
+		Session session = factory.getCurrentSession();
+		String hqlCount = "SELECT COUNT(*) FROM ProductEntity";
+		Query query = session.createQuery(hqlCount);
+		Long count = (Long) query.uniqueResult();
+		String productId;
+		if (count == 0) {
+			productId = "MH0001";
+		} else {
+			//Lấy hóa đơn lớn nhất hiện có trong bảng InvoiceEntity
+			String hqlMax = "SELECT MAX(product.id)"
+					+ " FROM ProductEntity product";
+			Query queryMax = session.createQuery(hqlMax);
+			String maxId = (String) queryMax.uniqueResult();
+			
+			//Tạo mã hóa đơn mới bằng cách tăng số thứ tự ở cuối chuỗi mã hóa đơn lên 1
+			String indexStr = maxId.substring(2);
+			indexStr = indexStr.trim();
+			int index = Integer.parseInt(indexStr) + 1;
+			productId = "MH" + String.format("%04d", index);
+		}
+		return productId;		
+	}
+	
 	@RequestMapping("save-data-create")
 	// Lưu dữ liệu sản phẩm tạo mới
 	public String saveDateUpdate(ModelMap model, @RequestParam(value = "id") String id,
