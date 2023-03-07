@@ -79,6 +79,18 @@
             
             /* phủ bóng mờ */
         }
+  .buttonform3 {
+            padding: 0.3em 1.4em;
+            font-size: 60px;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            border: 4px solid #f80202;
+            border-radius: 20px;
+            /* độ cong góc của button */
+            /* box-shadow: 5px 5px 5px rgba(199, 5, 5, 0.56); */
+           
+            /* phủ bóng mờ */
+        }
  tr:hover
         {
             cursor: pointer;
@@ -123,8 +135,8 @@
                                     <div style="text-align: left;">
                                         <img src="billnhapxuat-img.png" alt="Picture" style="width: 60em;height: 60em;">
                                         <div class="text-center">
-                                            <button type="button" class="btn btn-success  buttonform">Xuất Hàng</button>
-                
+                                            <button type="button" class="btn btn-success  buttonform">Nhập Hàng</button>
+                  <button type="button" class="btn btn-success buttonform3 ">Xuất Hàng</button>
                 
                                         </div>
                                     </div>
