@@ -17,8 +17,8 @@ public class DiscountEntity {
 	@Column(name = "MaChietKhau")
 	private String id;
 	@Column(name = "PTChietKhau")
-	private Double percent;
-	public DiscountEntity(String id, Double percent) {
+	private int percent;
+	public DiscountEntity(String id, int percent) {
 		super();
 		this.id = id;
 		this.percent = percent;
@@ -37,12 +37,14 @@ public class DiscountEntity {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Double getPercent() {
+	
+	public int getPercent() {
 		return percent;
 	}
-	public void setPercent(Double percent) {
+	public void setPercent(int percent) {
 		this.percent = percent;
 	}
+
 	public Collection<InvoiceEntity> getInvoices() {
 		return invoices;
 	}

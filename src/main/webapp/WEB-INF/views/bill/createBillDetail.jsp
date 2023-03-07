@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -168,7 +168,7 @@ span {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <body style="zoom: 25%;">
-	<form method="post" action="${pageContext.servletContext.contextPath }/bill/create-bill-detail.htm">
+	<div>
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="panel panel-default">
@@ -179,7 +179,7 @@ span {
 						<div class="row">
 							<div class="col-md-6">
 
-								<div class="panel panel-default">
+								<form action = "${pageContext.servletContext.contextPath}/bill/add-product.htm" method = "POST" class="panel panel-default">
 									<div class="panel-heading">
 										<h2>Sản Phẩm</h2>
 
@@ -197,7 +197,7 @@ span {
 											<div class="col-md-8">
 												<div class="row">
 													<div style="display: none">
-														<input name = "invoiceId" value="${invoiceId}">
+														<input name="invoiceId" value="${invoiceId}">
 													</div>
 													<div class="col-md-3 ">
 														<label style="margin-left: 2em;" for="product-id">Mã
@@ -206,9 +206,9 @@ span {
 													</div>
 													<div class="col-md-9 row">
 
-														<input class="formselectandinput product-id" id = "product-id"
-															list="product-id-list" name="productId"
-															onchange="updateNameAndRetailPrice(this.value)">
+														<input class="formselectandinput product-id"
+															id="product-id" list="product-id-list" name="productId"
+															value="" onchange="updateNameAndRetailPrice(this.value)">
 														<datalist class="formselectandinput" id="product-id-list">
 															<c:forEach var="p" items="${products}">
 																<option class="product-id-option" value="${p.id}"
@@ -216,7 +216,7 @@ span {
 																	data-retail-price="${p.retailPrice}">${p.name}</option>
 															</c:forEach>
 														</datalist>
-			
+
 													</div>
 
 												</div>
@@ -225,7 +225,7 @@ span {
 													<div class="col-md-12">
 														<div class="row "
 															style="border: 0.2em solid darkolivegreen;">
-															<div class="col-md-2 ">
+															<div class="col-md-2">
 																<label class="formlabel" for="product-name">Tên</label>
 																<hr>
 
@@ -236,11 +236,13 @@ span {
 																<label class="formlabel" for="product-quantity">Số
 																	lượng</label>
 															</div>
-															<div class="col-md-4 ">
-																<input class="formselectandinput product-name" id="product-name"
-																	list="product-name-list" name="productName"
+															<div class="col-md-6">
+																<input class="formselectandinput product-name"
+																	id="product-name" list="product-name-list"
+																	name="productName"
 																	onchange="updateIdAndRetailPrice(this.value)">
-																<datalist class="formselectandinput" id="product-name-list">
+																<datalist class="formselectandinput"
+																	id="product-name-list">
 																	<c:forEach var="p" items="${products}">
 																		<option class="product-name-option" value="${p.name}"
 																			data-id-product="${p.id}"
@@ -258,31 +260,15 @@ span {
 																	id="product-quantity" value="${1}">
 																<hr>
 															</div>
-															<div class="col-md-2 " style="margin-top: 5em;">
-																<label class="formlabel" for="product-stock">Hiện
-																	tồn</label>
-																<hr>
-																<label class="formlabel" for="product-warehouse">Kho</label>
-																<hr>
-															</div>
+
 															<div class="col-md-4" style="margin-top: 5em;">
 
-																<select class="formselectandinput" id="product-stock"
-																	name="product-stock">
-																	<option value="stock1">Stock 1</option>
-																	<option value="stock2">Stock 2</option>
-																	<option value="stock3">Stock 3</option>
-																</select>
+
+
 																<hr>
-																<select class="formselectandinput"
-																	id="product-warehouse" name="product-warehouse">
-																	<option value="warehouse1">Warehouse 1</option>
-																	<option value="warehouse2">Warehouse 2</option>
-																	<option value="warehouse3">Warehouse 3</option>
-																</select>
-																<hr>
-																<button id="add-product-btn" class="btn btn-success" style="width: 400px">
-																	<span 
+																<button id="add-product-btn" class="btn btn-success"
+																	style="width: 400px">
+																	<span
 																		style="font-size: 5em; color: #fff; padding: 20px 104px;">Thêm</span>
 																</button>
 
@@ -292,20 +278,20 @@ span {
 													</div>
 
 												</div>
-												
+
 											</div>
 
 										</div>
 
 
 									</div>
-								</div>
+								</form>
 
 							</div>
 							<div class="col-md-6">
 								<div class="panel panel-default">
 									<div class="panel-heading">
-										<h2>Thông Tin Khách Hàng</h2>
+										<h2>Thông tin khách hàng</h2>
 									</div>
 
 									<div class="panel-body">
@@ -328,21 +314,29 @@ span {
 												<label for="email">Email:</label>
 											</div>
 											<div class="col-md-6">
-												<select style="width: 15em; height: 1.5em;"
-													id="customer-name" name="customer-name">
-													<option value="id1">Nguyen Hoang Linh</option>
-													<option value="id2">Nguyen Duy Thien</option>
-													<option value="id3">Tran Minh Thanh</option>
-												</select>
+												<input style = "width: 100%; height: 1.5em;" name="customerName" value="" list="customer-name">
+												<datalist style= "width: 100%; height: 1.5em;"
+													id="customer-name">
+													<c:forEach var="c" items="${customers}">
+														<option value="${c.fullname}"></option>
+													</c:forEach>
+							
+												</datalist>
 												<hr>
-												<input class="formcustomerinfor" type="text"
-													id="customer-id" name="customer-id">
+												<input style = "width: 100%; height: 1.5em;" name="customerId" value="" list="customer-id">
+												<datalist style= "width: 100%; height: 1.5em;" id="customer-id">
+													<c:forEach var="c" items="${customers}">
+														<option value="${c.id}">${c.fullname }</option>
+													</c:forEach>
+							
+												</datalist>
+													
 												<hr>
 												<input class="formcustomerinfor" type="text" id="phone"
 													name="phone">
 												<hr>
 												<input class="formcustomerinfor" type="email" id="email"
-													name="email" placeholder="email@gmail.com">
+													name="email" >
 											</div>
 										</div>
 									</div>
@@ -356,8 +350,8 @@ span {
 
 							</div>
 							<div class="panel-body"
-								style="width: 435em; height: 50em; overflow-y: scroll;">
-								<table class="table">
+								style="height: 50em; overflow-y: scroll;">
+								<table class="table col-md-12">
 									<thead>
 										<tr>
 											<th style="width: 10%">STT</th>
@@ -369,7 +363,7 @@ span {
 									</thead>
 									<tbody id="list-product">
 										<c:forEach var="d" items="${invoiceDetails}" varStatus="i">
-											<tr> 
+											<tr>
 												<td>${i.index + 1}</td>
 												<td>${d.id.invoiceProduct.name}</td>
 												<td>${d.id.invoiceProduct.retailPrice}</td>
@@ -410,7 +404,7 @@ span {
 								style="border-right: 0.1em solid rgba(91, 89, 89, 0.663);">
 								<select id="discount">
 									<c:forEach var="d" items="${discounts}">
-										<option value="${p.id}">giảm giá <fmt:formatNumber value="${p.percent }" type="percent" /></option>
+										<option value="${p.id}">giảm giá ${p.percent}</option>
 									</c:forEach>
 								</select>
 								<hr>
@@ -494,12 +488,12 @@ span {
 				</div>
 				<div class="text-right">
 					<button type="button" class="btn btn-success formbutton">Huỷ</button>
-					<button type="button" class="btn btn-success ml-3 formbutton">Thanh
-						toán</button>
+					<button class="btn btn-success ml-3 formbutton">Thanh toán
+					</button>
 				</div>
 			</div>
 		</div>
-	</form>
+	</div>
 	<script>
 		// 	Cập nhật giá và id của mặt hàng theo tên hàng
 		function updateIdAndRetailPrice(productName) {
@@ -512,19 +506,18 @@ span {
 			var idProduct = option.attr('data-id-product')
 			var retailPrice = option.attr('data-retail-price')
 
-		
 			$("#product-id").val(idProduct)
 			$("#product-price").val(retailPrice)
 
 		}
-		
+
 		// Cập nhật giá và tên của mặt hàng theo id
 		function updateNameAndRetailPrice(productId) {
 			// Tìm thẻ option có value tương ứng
 			var option = $(".product-id-option").filter(function() {
 				return $(this).val().trim() == productId.trim()
 			})
-			
+
 			// Lấy giá trị thuộc tính data-name-product và data-retail-price của thẻ option theo id
 			var productName = option.attr('data-product-name')
 			var retailPrice = option.attr('data-retail-price')
@@ -535,38 +528,38 @@ span {
 		}
 	</script>
 	<script>
-	
 		// Xử lý sự kiện khi click vào button thêm sản phẩm vào giỏ hàng
-		$('#add-product-btn').click(function() {
-		
-			var index = $('#list-product tr').length + 1
-			var productName = $('#product-name').val()
-			var price = $('#product-price').val()
-			var quantity = $('#product-quantity').val()
+		$('#add-product-btn').click(
+				function() {
 
-			var newRow = '<tr><td>' + index + 
-			'</td><td>' + productName + 
-			'</td><td>' + price + 
-			'</td><td>' + quantity + 
-			'</td><td>' + quantity * price + 
-			'<td></tr>'
-			
-			$('#list-product').append(newRow)
-		})
+					var index = $('#list-product tr').length + 1
+					var productName = $('#product-name').val()
+					var price = $('#product-price').val()
+					var quantity = $('#product-quantity').val()
+
+					var newRow = '<tr><td>' + index + '</td><td>' + productName
+							+ '</td><td>' + price + '</td><td>' + quantity
+							+ '</td><td>' + quantity * price + '<td></tr>'
+
+					$('#list-product').append(newRow)
+				})
 	</script>
-	
+
 	<script>
 		var listProductTotalCost = $('.list-product-total-cost');
 		var totalCost = 0;
-		listProductTotalCost.each(function () {
+		listProductTotalCost.each(function() {
 			var cost = parseFloat($(this).text());
-			
+
 			if (!isNaN(cost)) {
 				totalCost += cost;
 			}
 		});
-		
-		const formattedCost = totalCost.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
+
+		const formattedCost = totalCost.toLocaleString('vi-VN', {
+			style : 'currency',
+			currency : 'VND'
+		});
 
 		$('.total-amount').val(formattedCost);
 	</script>

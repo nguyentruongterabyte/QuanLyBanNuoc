@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="KHACHHANG")
-public class CustommerEntity {
+public class CustomerEntity {
 	@Id
 	@Column(name="MaKhachHang")
 	private String id;
@@ -36,7 +36,7 @@ public class CustommerEntity {
 	private Collection<InvoiceEntity> invoices;
 	
 
-	public CustommerEntity() {
+	public CustomerEntity() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

@@ -25,7 +25,7 @@ public class InvoiceEntity {
 
 	@ManyToOne
 	@JoinColumn(name="MaKH")
-	private CustommerEntity customer;
+	private CustomerEntity customer;
 	
 	@ManyToOne
 	@JoinColumn(name="MaChietKhau")
@@ -77,11 +77,11 @@ public class InvoiceEntity {
 		this.status = status;
 	}
 
-	public CustommerEntity getCustomer() {
+	public CustomerEntity getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(CustommerEntity customer) {
+	public void setCustomer(CustomerEntity customer) {
 		this.customer = customer;
 	}
 
